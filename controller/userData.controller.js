@@ -1,6 +1,7 @@
 const UserData = require("../models/UserData.model");
 
 exports.createUserData = async (req, res) => {
+  console.log(req.body)
   try {
     const userData = new UserData({
       userId: req.body.userId || "unknown",
