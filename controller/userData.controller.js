@@ -1,4 +1,4 @@
-const UserData = require("../models/UserData.model");
+const UserData = require("../model/userData.model");
 
 exports.createUserData = async (req, res) => {
   console.log(req.body)
