@@ -124,4 +124,4 @@ const userDataSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
-export default mongoose.model("UserData", userDataSchema);
+module.exports = mongoose.model("UserData", userDataSchema);
