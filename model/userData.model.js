@@ -25,12 +25,14 @@ const userDataSchema = new mongoose.Schema({
     osVersion: String,
     deviceName: String,
     totalMemory: Number,
-    freeStorage: Number,
-    totalStorage: Number,
+    freeMemory: Number,
     manufacturer: String,
     deviceType: String,
     isDevice: Boolean,
     supportedCpuArchitectures: [String],
+    supportedABIs: [String],
+    supported32BitAbis: [String],
+    supported64BitAbis: [String],
   },
 
   network: {
@@ -38,15 +40,19 @@ const userDataSchema = new mongoose.Schema({
     type: String,
     isConnected: Boolean,
     ipAddress: String,
+    macAddress: String,
     carrier: String,
-    signalStrength: String, // your code sends "check via native"
+    signalStrength: String,
     vpnEnabled: Boolean,
   },
 
   battery: {
-    level: Number,
-    state: Number,
+    level: Number, // 0–1
+    state: Number, // charging, full, unplugged
     lowPowerMode: Boolean,
+    charging: Boolean,
+    temperature: Number,
+    health: String,
   },
 
   sensors: {
@@ -65,6 +71,11 @@ const userDataSchema = new mongoose.Schema({
       y: Number,
       z: Number,
     },
+    orientation: {
+      alpha: Number,
+      beta: Number,
+      gamma: Number,
+    },
   },
 
   permissions: {
@@ -73,6 +84,10 @@ const userDataSchema = new mongoose.Schema({
     camera: String,
     microphone: String,
     media: String,
+    contacts: String,
+    calendar: String,
+    sms: String,
+    storage: String,
   },
 
   biometric: {
@@ -88,6 +103,9 @@ const userDataSchema = new mongoose.Schema({
         uri: String,
         filename: String,
         creationTime: Number,
+        width: Number,
+        height: Number,
+        exif: Object, // metadata like GPS, orientation, ISO
       },
     ],
     videos: [
@@ -96,6 +114,9 @@ const userDataSchema = new mongoose.Schema({
         uri: String,
         filename: String,
         creationTime: Number,
+        duration: Number,
+        width: Number,
+        height: Number,
       },
     ],
   },
