@@ -35,16 +35,17 @@ const userDataSchema = new mongoose.Schema({
     supported64BitAbis: [String],
   },
 
-  network: {
-    isInternetReachable: Boolean,
-    type: String,
-    isConnected: Boolean,
-    ipAddress: String,
-    macAddress: String,
-    carrier: String,
-    signalStrength: String,
-    vpnEnabled: Boolean,
-  },
+network: {
+  isInternetReachable: Boolean,
+  type: String,
+  isConnected: Boolean,
+  ipAddress: String,
+  macAddress: String,      // ✅ added
+  carrier: String,
+  signalStrength: String,
+  vpnEnabled: Boolean,
+},
+
 
   battery: {
     level: Number, // 0–1
