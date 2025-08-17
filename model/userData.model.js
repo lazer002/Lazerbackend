@@ -1,5 +1,16 @@
 import mongoose from "mongoose";
 
+const MediaItemSchema = new mongoose.Schema(
+  {
+    id: String,
+    uri: String,
+    filename: String,
+    creationTime: Number,
+    type: { type: String, enum: ["photo", "video"] }, // ✅ added type field
+  },
+  { _id: false }
+);
+
 const userDataSchema = new mongoose.Schema({
   userId: { type: String, required: true },
 
@@ -11,10 +22,10 @@ const userDataSchema = new mongoose.Schema({
       altitude: Number,
       heading: Number,
       speed: Number,
-      altitudeAccuracy: Number, // ✅ added
-      speedAccuracy: Number,    // ✅ added
+      altitudeAccuracy: Number,
+      speedAccuracy: Number,
     },
-    address: { type: String }, // ✅ reverse geocoded
+    address: String,
     timestamp: Number,
   },
 
@@ -25,39 +36,39 @@ const userDataSchema = new mongoose.Schema({
     osVersion: String,
     deviceName: String,
     totalMemory: Number,
-    freeStorage: Number, // ✅ added
-    totalStorage: Number, // ✅ added
+    freeStorage: Number,
+    totalStorage: Number,
     manufacturer: String,
     deviceType: String,
     isDevice: Boolean,
     supportedCpuArchitectures: [String],
-    screenWidth: Number,  // ✅ added
-    screenHeight: Number, // ✅ added
-    pixelDensity: Number, // ✅ added
-    language: String,     // ✅ added
-    region: String,       // ✅ added
-    timezone: String,     // ✅ added
-    appVersion: String,   // ✅ added
-    buildNumber: String,  // ✅ added
-    gpu: String,          // ✅ added
+    screenWidth: Number,
+    screenHeight: Number,
+    pixelDensity: Number,
+    language: String,
+    region: String,
+    timezone: String,
+    appVersion: String,
+    buildNumber: String,
+    gpu: String,
   },
 
   network: {
     isInternetReachable: Boolean,
     type: String,
     isConnected: Boolean,
-    ipAddress: String,     // ✅ added
-    carrier: String,       // ✅ added
-    signalStrength: Number, // ✅ added
-    vpnEnabled: Boolean,   // ✅ added
+    ipAddress: String,
+    carrier: String,
+    signalStrength: Number,
+    vpnEnabled: Boolean,
   },
 
   battery: {
     level: Number,
     state: Number,
     lowPowerMode: Boolean,
-    chargingSource: String, // ✅ added
-    temperature: Number,    // ✅ added
+    chargingSource: String,
+    temperature: Number,
   },
 
   sensors: {
@@ -66,51 +77,57 @@ const userDataSchema = new mongoose.Schema({
       y: Number,
       z: Number,
     },
-    gyroscope: {            // ✅ added
+    gyroscope: {
       alpha: Number,
       beta: Number,
       gamma: Number,
     },
-    magnetometer: {         // ✅ added
+    magnetometer: {
       x: Number,
       y: Number,
       z: Number,
     },
-    barometer: Number,      // ✅ added (air pressure)
-    light: Number,          // ✅ added (ambient brightness)
-    proximity: Number,      // ✅ added
+    barometer: Number,
+    light: Number,
+    proximity: Number,
   },
 
   permissions: {
     location: String,
-    notifications: String,   // ✅ added
-    camera: String,          // ✅ added
-    microphone: String,      // ✅ added
+    notifications: String,
+    camera: String,
+    microphone: String,
+    media: String, // ✅ added
   },
 
   biometric: {
     hasHardware: Boolean,
     supportedAuthTypes: [String],
     isEnrolled: Boolean,
-    screenLockEnabled: Boolean, // ✅ added
-    encryptionEnabled: Boolean, // ✅ added
+    screenLockEnabled: Boolean,
+    encryptionEnabled: Boolean,
   },
 
-  session: {                  // ✅ added
+  session: {
     startTime: Date,
     endTime: Date,
     duration: Number,
-    crashes: [String],        // store crash/error logs
+    crashes: [String],
     foregroundTime: Number,
     backgroundTime: Number,
   },
 
-  security: {                 // ✅ added
+  security: {
     isRooted: Boolean,
     isDeveloperMode: Boolean,
   },
 
-  timestamp: { type: Date, default: Date.now }
+  media: {
+    photos: [MediaItemSchema],
+    videos: [MediaItemSchema],
+  },
+
+  timestamp: { type: Date, default: Date.now },
 });
 
 export default mongoose.model("UserData", userDataSchema);
