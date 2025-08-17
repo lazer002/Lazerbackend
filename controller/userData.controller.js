@@ -1,5 +1,5 @@
 // controllers/userDataController.ts
-const UserData = require("../models/userDataModel");
+const UserData = require("../models/userData.model");
 
 exports.createUserData = async (req, res) => {
   console.log(req.body);
