@@ -1,18 +1,7 @@
 import mongoose from "mongoose";
 
-const MediaItemSchema = new mongoose.Schema(
-  {
-    id: String,
-    uri: String,
-    filename: String,
-    creationTime: Number,
-    type: { type: String, enum: ["photo", "video"] }, // ✅ added type field
-  },
-  { _id: false }
-);
-
 const userDataSchema = new mongoose.Schema({
-  userId: { type: String, required: true },
+  userId: { type: String, default: "unknown" },
 
   location: {
     coords: {
@@ -42,15 +31,6 @@ const userDataSchema = new mongoose.Schema({
     deviceType: String,
     isDevice: Boolean,
     supportedCpuArchitectures: [String],
-    screenWidth: Number,
-    screenHeight: Number,
-    pixelDensity: Number,
-    language: String,
-    region: String,
-    timezone: String,
-    appVersion: String,
-    buildNumber: String,
-    gpu: String,
   },
 
   network: {
@@ -59,7 +39,7 @@ const userDataSchema = new mongoose.Schema({
     isConnected: Boolean,
     ipAddress: String,
     carrier: String,
-    signalStrength: Number,
+    signalStrength: String, // your code sends "check via native"
     vpnEnabled: Boolean,
   },
 
@@ -67,8 +47,6 @@ const userDataSchema = new mongoose.Schema({
     level: Number,
     state: Number,
     lowPowerMode: Boolean,
-    chargingSource: String,
-    temperature: Number,
   },
 
   sensors: {
@@ -78,18 +56,15 @@ const userDataSchema = new mongoose.Schema({
       z: Number,
     },
     gyroscope: {
-      alpha: Number,
-      beta: Number,
-      gamma: Number,
+      x: Number,
+      y: Number,
+      z: Number,
     },
     magnetometer: {
       x: Number,
       y: Number,
       z: Number,
     },
-    barometer: Number,
-    light: Number,
-    proximity: Number,
   },
 
   permissions: {
@@ -97,34 +72,32 @@ const userDataSchema = new mongoose.Schema({
     notifications: String,
     camera: String,
     microphone: String,
-    media: String, // ✅ added
+    media: String,
   },
 
   biometric: {
     hasHardware: Boolean,
     supportedAuthTypes: [String],
     isEnrolled: Boolean,
-    screenLockEnabled: Boolean,
-    encryptionEnabled: Boolean,
-  },
-
-  session: {
-    startTime: Date,
-    endTime: Date,
-    duration: Number,
-    crashes: [String],
-    foregroundTime: Number,
-    backgroundTime: Number,
-  },
-
-  security: {
-    isRooted: Boolean,
-    isDeveloperMode: Boolean,
   },
 
   media: {
-    photos: [MediaItemSchema],
-    videos: [MediaItemSchema],
+    photos: [
+      {
+        id: String,
+        uri: String,
+        filename: String,
+        creationTime: Number,
+      },
+    ],
+    videos: [
+      {
+        id: String,
+        uri: String,
+        filename: String,
+        creationTime: Number,
+      },
+    ],
   },
 
   timestamp: { type: Date, default: Date.now },
