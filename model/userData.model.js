@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const userDataSchema = new mongoose.Schema({
   userId: { type: String, default: "unknown" },
