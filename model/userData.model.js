@@ -36,15 +36,16 @@ const userDataSchema = new mongoose.Schema({
   },
 
 network: {
-  isInternetReachable: Boolean,
-  type: String,
-  isConnected: Boolean,
-  ipAddress: String,
-  macAddress: String,      // ✅ added
-  carrier: String,
-  signalStrength: String,
-  vpnEnabled: Boolean,
-},
+  isInternetReachable: { type: Boolean, default: false },
+  type: { type: String, default: "unknown" },
+  isConnected: { type: Boolean, default: false },
+  ipAddress: { type: String, default: null },
+  macAddress: { type: String, default: null },       // optional
+  carrier: { type: String, default: "unknown" },
+  signalStrength: { type: String, default: "unknown" },
+  vpnEnabled: { type: Boolean, default: false },
+}
+,
 
 
   battery: {
